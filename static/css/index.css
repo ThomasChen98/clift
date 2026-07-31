@@ -1,0 +1,321 @@
+body {
+  color: #1f2933;
+  font-family: 'Noto Sans', sans-serif;
+  background: #ffffff;
+}
+
+a {
+  color: #0f766e;
+}
+
+.navbar {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.navbar-item {
+  font-family: 'Google Sans', sans-serif;
+}
+
+.link-block {
+  display: inline-block;
+}
+
+.link-block .button {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.button.is-dark-teal {
+  background: #0f766e;
+  border-color: #0f766e;
+  color: #ffffff;
+}
+
+.button.is-dark-teal:hover {
+  background: #0c5e58;
+  border-color: #0c5e58;
+  color: #ffffff;
+}
+
+.anonymous-button.is-static {
+  background: #2f3a45;
+  border-color: #2f3a45;
+  color: #ffffff;
+  opacity: 1;
+}
+
+.publication-header .hero-body {
+  padding-bottom: 2.5rem;
+}
+
+.publication-title {
+  font-family: 'Google Sans', sans-serif;
+  letter-spacing: 0;
+  line-height: 1.12;
+  margin-top: 0.65rem;
+  overflow-wrap: break-word;
+}
+
+.publication-subtitle-line {
+  color: #b45309;
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 600;
+  margin-top: 0.4rem;
+}
+
+.publication-authors,
+.publication-affiliations {
+  font-family: 'Google Sans', sans-serif;
+}
+
+.publication-affiliations {
+  color: #5f6b76;
+  margin-top: 0.35rem;
+}
+
+.publication-venue {
+  color: #0f766e;
+  display: inline-block;
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+}
+
+.publication-links {
+  margin-top: 1.1rem;
+}
+
+.author-block {
+  display: inline-block;
+}
+
+.teaser {
+  font-family: 'Google Sans', sans-serif;
+}
+
+.teaser .hero-body {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+.method-name {
+  color: #0f766e;
+  font-variant: small-caps;
+  font-weight: 700;
+}
+
+.section-band {
+  background: #f6f7f9;
+}
+
+.section-kicker {
+  color: #b45309;
+  font-family: 'Google Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+
+/* ---- Teaser / figure video ---- */
+.teaser-video,
+.paper-figure video {
+  background: #000000;
+  border: 1px solid #e1e5ea;
+  border-radius: 8px;
+  display: block;
+  width: 100%;
+}
+
+.paper-figure {
+  margin: 1.25rem 0 1.5rem;
+}
+
+.paper-figure img {
+  background: #ffffff;
+  border: 1px solid #e1e5ea;
+  border-radius: 8px;
+  display: block;
+  width: 100%;
+}
+
+.paper-figure figcaption {
+  color: #52606d;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  margin-top: 0.65rem;
+  text-align: left;
+}
+
+.figure-narrow img {
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+/* ---- Cards ---- */
+.paper-card-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.paper-card {
+  background: #ffffff;
+  border: 1px solid #e1e5ea;
+  border-radius: 8px;
+  border-top: 3px solid #0f766e;
+  min-height: 150px;
+  padding: 1.15rem;
+}
+
+.paper-card .step-index {
+  color: #0f766e;
+  font-family: 'Google Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.paper-card .title {
+  line-height: 1.2;
+  margin-bottom: 0.65rem;
+  margin-top: 0.2rem;
+}
+
+.paper-card p {
+  color: #52606d;
+  margin-bottom: 0;
+}
+
+.findings-grid {
+  margin-bottom: 1.5rem;
+}
+
+/* ---- Takeaway callout ---- */
+.takeaway {
+  background: rgba(15, 118, 110, 0.07);
+  border-left: 4px solid #0f766e;
+  border-radius: 6px;
+  color: #1f2933;
+  margin: 1.25rem 0 1.5rem;
+  padding: 1rem 1.25rem;
+}
+
+.takeaway p {
+  margin-bottom: 0;
+}
+
+.takeaway strong {
+  color: #0f5d56;
+}
+
+/* ---- Tables ---- */
+.table-stack {
+  display: grid;
+  gap: 1rem;
+  /* minmax(0, 1fr) lets the grid track shrink below content size so a wide
+     table scrolls inside its overflow-x container instead of overflowing the page */
+  grid-template-columns: minmax(0, 1fr);
+  margin-bottom: 1.5rem;
+}
+
+.table-card {
+  background: #ffffff;
+  border: 1px solid #e1e5ea;
+  border-radius: 8px;
+  min-width: 0;
+  padding: 1.15rem;
+}
+
+.table-card .title {
+  margin-bottom: 0.4rem;
+}
+
+.table-caption {
+  color: #52606d;
+  font-size: 0.9rem;
+  margin-bottom: 0.9rem;
+}
+
+/* Allow Bulma flex columns to shrink below content size so wide tables scroll
+   inside their own container instead of forcing horizontal page overflow. */
+.columns > .column {
+  min-width: 0;
+}
+
+.table-container {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.result-table {
+  border-collapse: collapse;
+  color: #2f3a45;
+  font-size: 0.9rem;
+  min-width: 640px;
+  width: 100%;
+}
+
+.result-table th,
+.result-table td {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0.5rem 0.6rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.result-table th:first-child,
+.result-table td:first-child {
+  text-align: left;
+}
+
+.result-table thead th {
+  color: #30343a;
+  font-weight: 700;
+}
+
+.result-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.ours-row {
+  background: rgba(15, 118, 110, 0.1);
+  font-weight: 600;
+}
+
+.ours-row td:first-child {
+  color: #0f5d56;
+}
+
+pre {
+  border-radius: 8px;
+  white-space: pre-wrap;
+}
+
+footer.footer {
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  color: #5f6b76;
+  font-size: 0.9rem;
+  padding: 2rem 1.5rem 2.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  /* Higher specificity than Bulma's .title.is-1 (3rem) so the long title scales down */
+  .title.is-1.publication-title {
+    font-size: 1.65rem;
+    line-height: 1.18;
+  }
+
+  .paper-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .result-table {
+    min-width: 520px;
+  }
+}
