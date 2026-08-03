@@ -31,6 +31,7 @@
 </head>
 <body>
 
+<div class="progress" aria-hidden="true"></div>
 <nav class="nav" aria-label="Page navigation">
   <a class="nav-brand" href="#top">CLIFT</a>
   <div class="nav-links">
@@ -66,6 +67,12 @@
         <sup>2</sup>Google DeepMind&ensp;&middot;&ensp;
         <sup>3</sup>NVIDIA Research
       </p>
+
+      <div class="logo-row" aria-hidden="true">
+        <img src="./static/images/logo_berkeley.svg" alt="" class="logo logo-cal">
+        <img src="./static/images/logo_gdm.svg" alt="" class="logo logo-gdm">
+        <img src="./static/images/logo_nvidia.svg" alt="" class="logo logo-nv">
+      </div>
 
       <div class="links" role="group" aria-label="Paper links">
         <a class="btn btn-primary" href="#film">
@@ -288,7 +295,7 @@
       </div>
 
       <figure class="figure reveal">
-          <div class="figure-plate">
+          <div class="figure-plate figure-plate--photo">
             <img src="./static/images/teleop.png" loading="lazy"
                  alt="Whole-body teleoperation setup: an operator in a VR headset and controllers driving a Unitree G1 humanoid.">
           </div>
@@ -366,6 +373,7 @@
               <span class="num-final" data-count="100" data-from="93">100%</span>
               <span class="num-delta">&#9650;&#8202;7</span>
             </p>
+            <div class="task-bar" aria-hidden="true"><span class="task-bar-notch" style="left: 93%"></span><i class="task-bar-fill" style="--w: 100%"></i></div>
             <p class="task-sub">SFT baseline &rarr; CLIFT, 2 cycles &middot; 100 trials</p>
           </div>
         </article>
@@ -382,6 +390,7 @@
               <span class="num-final" data-count="98" data-from="70">98%</span>
               <span class="num-delta">&#9650;&#8202;28</span>
             </p>
+            <div class="task-bar" aria-hidden="true"><span class="task-bar-notch" style="left: 70%"></span><i class="task-bar-fill" style="--w: 98%"></i></div>
             <p class="task-sub">SFT baseline &rarr; CLIFT, 2 cycles &middot; 100 trials</p>
           </div>
         </article>
@@ -398,6 +407,7 @@
               <span class="num-final" data-count="96" data-from="53">96%</span>
               <span class="num-delta">&#9650;&#8202;43</span>
             </p>
+            <div class="task-bar" aria-hidden="true"><span class="task-bar-notch" style="left: 53%"></span><i class="task-bar-fill" style="--w: 96%"></i></div>
             <p class="task-sub">SFT baseline &rarr; CLIFT, 2 cycles &middot; 100 trials</p>
           </div>
         </article>
