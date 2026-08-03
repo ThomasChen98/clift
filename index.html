@@ -14,447 +14,513 @@
   <meta property="og:url" content="https://thomaschen98.github.io/clift/">
   <meta property="og:title" content="CLIFT: Turning Gemini Robotics On-Device into Humanoid Specialists via Non-Invasive Closed-Loop Iterative Fine-Tuning">
   <meta property="og:description" content="Closed-loop policy improvement through a managed SFT API — without ever opening the model box.">
-  <meta property="og:image" content="https://thomaschen98.github.io/clift/static/images/teaser.png">
+  <meta property="og:image" content="https://thomaschen98.github.io/clift/static/images/og_card.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="CLIFT: Turning Gemini Robotics On-Device into Humanoid Specialists via Non-Invasive Closed-Loop Iterative Fine-Tuning">
   <meta name="twitter:description" content="Closed-loop policy improvement through a managed SFT API — without ever opening the model box.">
-  <meta name="twitter:image" content="https://thomaschen98.github.io/clift/static/images/teaser.png">
+  <meta name="twitter:image" content="https://thomaschen98.github.io/clift/static/images/og_card.jpg">
 
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="data:,">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237cb3ff'/%3E%3Cstop offset='1' stop-color='%23a78bfa'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='7' fill='%230b0f17'/%3E%3Cpath d='M21.5 11.2a6.4 6.4 0 1 0 0 9.6' fill='none' stroke='url(%23g)' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E">
 
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script defer src="./static/js/index.js"></script>
 </head>
 <body>
 
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="#top" aria-label="Home">
-      <span class="icon">
-        <i class="fas fa-home"></i>
-      </span>
-    </a>
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div id="navbar-menu" class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="#overview">Overview</a>
-      <a class="navbar-item" href="#method">Method</a>
-      <a class="navbar-item" href="#experiments">Experiments</a>
-      <a class="navbar-item" href="#results">Results</a>
-    </div>
+<nav class="nav" aria-label="Page navigation">
+  <a class="nav-brand" href="#top">CLIFT</a>
+  <div class="nav-links">
+    <a href="#film">Video</a>
+    <a href="#problem">Problem</a>
+    <a href="#method">Method</a>
+    <a href="#experiments">Experiments</a>
+    <a href="#results">Results</a>
+    <a href="#bibtex">BibTeX</a>
   </div>
 </nav>
 
 <main id="top">
-  <section class="hero publication-header">
-    <div class="hero-body">
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column has-text-centered">
-            <p class="publication-venue">CoRL 2026 Anonymous Submission</p>
-            <h1 class="title is-1 publication-title">
-              CLIFT: Turning Gemini Robotics On-Device into Humanoid Specialists via Non-Invasive Closed-Loop Iterative Fine-Tuning
-            </h1>
 
-            <p class="publication-subtitle-line">
-              Closed-loop policy improvement through a managed SFT API &mdash; without ever opening the model box.
-            </p>
+  <!-- ================= hero ================= -->
+  <header class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="container">
+      <h1 class="title">
+        <span class="title-name grad">CLIFT</span>
+        <span class="title-deck">Turning Gemini Robotics On&#8209;Device into Humanoid Specialists
+        via Non&#8209;Invasive Closed&#8209;Loop Iterative Fine&#8209;Tuning</span>
+      </h1>
 
-            <div class="is-size-5 publication-authors">
-              <span class="author-block">Anonymous Author(s)</span>
-            </div>
-            <div class="is-size-6 publication-affiliations">
-              <span class="author-block">Affiliation withheld for double-blind review</span>
-            </div>
+      <p class="authors">
+        Yuxin Chen<sup>1</sup>, Hari Srikanth<sup>1</sup>, Nathan Jew<sup>1</sup>,
+        Menglin Wu<sup>1</sup>, Pengcheng Wang<sup>1</sup>, Junli Ren<sup>1</sup>,<br>
+        Masayoshi Tomizuka<sup>1</sup>, Peng Xu<sup>2</sup>, Jinyu Xie<sup>2</sup>,
+        Ran &ldquo;Thomas&rdquo; Tian<sup>1,3</sup>
+      </p>
+      <p class="affils">
+        <sup>1</sup>University of California, Berkeley&ensp;&middot;&ensp;
+        <sup>2</sup>Google DeepMind&ensp;&middot;&ensp;
+        <sup>3</sup>NVIDIA Research
+      </p>
 
-            <div class="publication-links">
-              <span class="link-block">
-                <a href="#overview" class="button is-rounded is-dark-teal">
-                  <span class="icon"><i class="fas fa-video"></i></span>
-                  <span>Video</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="#method" class="button is-rounded is-dark-teal">
-                  <span class="icon"><i class="fas fa-project-diagram"></i></span>
-                  <span>Method</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="#results" class="button is-rounded is-dark-teal">
-                  <span class="icon"><i class="fas fa-chart-bar"></i></span>
-                  <span>Results</span>
-                </a>
-              </span>
-            </div>
+      <div class="links" role="group" aria-label="Paper links">
+        <a class="btn btn-primary" href="#film">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+          Video
+        </a>
+        <a class="btn" href="https://arxiv.org/abs/2607.29172" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6zM14 3.5V8h4.5"/></svg>
+          Paper
+        </a>
+        <button type="button" class="btn btn-soon" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l-6-6 6-6M15 6l6 6-6 6"/></svg>
+          Code
+        </button>
+        <a class="btn" href="#bibtex">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10a2 2 0 012 2v14l-7-4-7 4V6a2 2 0 012-2z"/></svg>
+          BibTeX
+        </a>
+      </div>
+    </div>
+  </header>
 
+  <!-- ================= film ================= -->
+  <section class="section" id="film" aria-label="Video">
+    <div class="container">
+
+      <figure class="film-frame">
+        <video id="film-player" controls playsinline preload="metadata"
+               poster="./static/images/film_poster.jpg">
+          <source src="./static/videos/clift_film.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- ================= problem ================= -->
+  <section class="section" id="problem" aria-labelledby="problem-h">
+    <div class="container">
+      <p class="section-kicker">Problem &amp; Motivation</p>
+      <h2 class="section-title" id="problem-h">How can a closed-weight model learn in closed loop?</h2>
+
+      <div class="feature reveal">
+        <div class="feature-media">
+          <div class="clip-frame">
+            <video muted loop playsinline preload="metadata" poster="./static/images/anim_fails_poster.jpg" src="./static/videos/anim_fails.mp4"
+                   aria-label="Animation: four real deployment failures — plate handover, box packing, cup insertion, door closing — each sealed with a red cross at the failure moment"></video>
           </div>
+        </div>
+        <div class="feature-copy">
+          <p class="card-step">Deployment reality</p>
+          <h3>Powerful generalists &mdash; but short of task mastery</h3>
+          <p>
+            Closed-weight robot foundation models are powerful generalists, but they often suffer from
+            covariate shift, and lack the task mastery needed for deployment: on agile, contact-rich
+            humanoid tasks, real rollouts still fail.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature flip reveal">
+        <div class="feature-media">
+          <div class="clip-frame">
+            <video muted loop playsinline preload="metadata" poster="./static/images/anim_locked_poster.jpg" src="./static/videos/anim_locked.mp4"
+                   aria-label="Animation: the closed training loop forms, then breaks — gradients, losses, action likelihoods and custom objectives are sealed off; only the managed SFT API stays lit"></video>
+          </div>
+        </div>
+        <div class="feature-copy">
+          <p class="card-step">The wall</p>
+          <h3>Every door into closed-loop training is locked</h3>
+          <p>
+            Mastery takes practice: the robot must learn in closed loop, where deployment experience
+            improves the policy. But for a proprietary model like Gemini Robotics On-Device, the internals
+            that closed-loop training typically requires — gradients, losses, action likelihoods — are
+            hidden. The only access point is a managed SFT API.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="hero teaser" id="overview">
-    <div class="container is-max-desktop">
-      <div class="hero-body">
-        <figure class="paper-figure">
-          <video class="teaser-video" controls autoplay muted loop playsinline
-                 poster="./static/images/video_poster.png">
-            <source src="./static/videos/clift_teaser.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-          <figcaption>
-            <strong>CLIFT in action.</strong>
-            Starting from a demonstration-trained policy, CLIFT runs a deployment-time data flywheel on a
-            real Unitree&nbsp;G1 humanoid &mdash; collecting on-device closed-loop rollouts, scoring them with a
-            preference-calibrated dense reward, and relabeling each chunk into API-compatible supervised data &mdash;
-            pushing Gemini Robotics On-Device to near-perfect success on agile, contact-rich manipulation.
-          </figcaption>
-        </figure>
-        <h2 class="subtitle has-text-centered">
-          <span class="method-name">CLIFT</span> is a non-invasive, API-only flywheel that turns
-          <em>closed-weight</em> Gemini Robotics On-Device into a humanoid specialist &mdash;
-          without ever touching the model's weights, gradients, or losses.
-        </h2>
+  <!-- ================= method ================= -->
+  <section class="section section-alt" id="method" aria-labelledby="method-h">
+    <div class="container">
+      <p class="section-kicker">Method</p>
+      <h2 class="section-title" id="method-h">Closed-Loop Iterative Fine-Tuning</h2>
+      <div class="prose">
+        <p>
+          We access the foundation VLA only through a <strong>managed SFT interface</strong> — a black-box
+          operator that maps a dataset of observation&ndash;instruction&ndash;action-chunk tuples to a fine-tuned
+          policy, exposing no weights, gradients, losses, or action likelihoods. Standard RL is incompatible with
+          this interface: PPO needs log-probabilities and backpropagation, and advantage-weighted regression
+          reweights losses — neither is exposed. Our key insight is that
+          <strong>the reinforcement signal can be encoded directly into the supervised training data</strong>,
+          letting the SFT API perform RL-style policy improvement without modifying the model or training procedure.
+          The loop starts from an initial policy obtained by fine-tuning the base model on teleoperated
+          demonstrations — the only available update operation.
+        </p>
       </div>
-    </div>
-  </section>
 
-  <section class="section">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Abstract</h2>
-          <div class="content has-text-justified">
-            <p>
-              While robot foundation models are growing increasingly capable, the strongest models are typically
-              trained on proprietary data and have traditionally remained closed-source, limiting downstream users'
-              ability to adapt them to new tasks, embodiments, and deployment settings. Following the LLM community,
-              an emerging access paradigm for closed-weight robot foundation models is the
-              <strong>managed supervised fine-tuning (SFT) API</strong>, where users submit training data and receive
-              a tuned policy without access to model weights, gradients, or training internals.
-            </p>
-            <p>
-              While such APIs let downstream users leverage powerful proprietary foundation models, they restrict
-              policy improvement to pure imitation, ruling out classical reinforcement learning and other closed-loop
-              methods that rely on internal training signals. This limitation is particularly acute for agile,
-              contact-rich humanoid manipulation, where the gap between policy outputs and deployed behavior is large
-              due to novel states, action tracking dynamics, latency, and controller-specific failure modes.
-            </p>
-            <p>
-              We conduct one of the first empirical studies of managed-API adaptation on a real humanoid, instantiated
-              on <strong>Gemini Robotics On-Device (GROD)</strong>. Direct SFT through the API already substantially
-              outperforms a leading open-weight VLA trained on the same demonstrations, yet still falls short of
-              deployment-level mastery on agile, contact-rich tasks. To close this gap, we introduce
-              <span class="method-name">CLIFT</span>: <strong>Closed-Loop Iterative Fine-Tuning</strong>, which turns
-              deployment-time reward feedback into API-compatible supervised data and enables closed-loop policy
-              improvement without accessing weights, gradients, likelihoods, or losses &mdash; pushing GROD to
-              near-perfect success after two flywheel cycles, all without &ldquo;opening the model box.&rdquo;
-            </p>
+      <figure class="figure reveal">
+        <div class="figure-plate">
+          <img src="./static/images/teaser.png" loading="lazy"
+               alt="The CLIFT flywheel: demonstrations bootstrap GROD, which is deployed to collect rollouts that are scored, advantage-labeled, and folded back into the SFT dataset.">
+        </div>
+        <figcaption>
+          <strong>The CLIFT flywheel.</strong>
+          An API-only, non-invasive loop. Each cycle deploys the current policy to collect on-device closed-loop
+          rollouts, scores them with a preference-calibrated dense reward, and converts each rollout chunk into an
+          SFT tuple carrying a special <em>advantage token</em> derived from that reward. Fine-tuning on these
+          tuples through GROD&rsquo;s managed SFT API — and conditioning on the positive advantage token at
+          deployment — yields the next, improved policy, closing the flywheel.
+        </figcaption>
+      </figure>
+
+      <div class="feature reveal">
+        <div class="feature-media">
+          <div class="clip-frame">
+            <video muted loop playsinline preload="metadata" poster="./static/images/anim_reward_poster.jpg" src="./static/videos/anim_reward.mp4"
+                   aria-label="Animation: the generative reward model scores a deployment rollout step by step"></video>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-band" id="method">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column is-full-width">
-          <p class="section-kicker">Method</p>
-          <h2 class="title is-3">Closed-Loop Iterative Fine-Tuning (CLIFT)</h2>
-          <div class="content has-text-justified">
-            <p>
-              We access the foundation VLA only through a <strong>managed SFT interface</strong> &mdash; a black-box
-              operator that maps a dataset of observation&ndash;instruction&ndash;action-chunk tuples to a fine-tuned
-              policy, exposing no weights, gradients, losses, or action likelihoods. Standard RL is incompatible with
-              this interface: PPO needs log-probabilities and backpropagation, and advantage-weighted regression
-              reweights losses &mdash; neither is exposed. Our key insight is that
-              <strong>the reinforcement signal can be encoded directly into the supervised training data</strong>,
-              letting the SFT API perform RL-style policy improvement without modifying the model or training procedure.
-            </p>
-          </div>
-
-          <figure class="paper-figure">
-            <img src="./static/images/teaser.png"
-                 alt="The CLIFT flywheel: demonstrations bootstrap GROD, which is deployed to collect rollouts that are scored, advantage-labeled, and folded back into the SFT dataset.">
-            <figcaption>
-              <strong>The CLIFT flywheel.</strong>
-              An API-only, non-invasive loop. Starting from an initial imitation policy, each cycle deploys the
-              current policy to collect on-device closed-loop <em>rollouts</em>, scores them with a
-              preference-calibrated dense reward, and converts each rollout chunk into an SFT tuple carrying a
-              special <em>advantage token</em> derived from that reward. Fine-tuning on these tuples through GROD's
-              managed SFT API &mdash; and conditioning on the positive advantage token at deployment &mdash; yields the
-              next, improved policy, closing the flywheel.
-            </figcaption>
-          </figure>
-
-          <div class="paper-card-grid">
-            <article class="paper-card">
-              <p class="step-index">Step 1 &middot; Bootstrap</p>
-              <h3 class="title is-5">Demonstration-Trained Policy</h3>
-              <p>
-                The loop starts from an initial policy obtained by fine-tuning the base model on teleoperated
-                demonstrations through the managed SFT API &mdash; the only available update operation.
-              </p>
-            </article>
-            <article class="paper-card">
-              <p class="step-index">Step 2 &middot; Reward</p>
-              <h3 class="title is-5">Preference-Calibrated Dense Reward</h3>
-              <p>
-                A <em>select-then-distill</em> scheme: human pairwise preferences select calibrated rewards from
-                VLM-generated candidates, which are distilled into a reusable dense reward model that scores task
-                progress, execution quality, and safety at every step.
-              </p>
-            </article>
-            <article class="paper-card">
-              <p class="step-index">Step 3 &middot; Advantage</p>
-              <h3 class="title is-5">Retrieval-Based Advantage Conditioning</h3>
-              <p>
-                Each action chunk is scored by its discounted return and compared, via visual retrieval, against
-                chunks from similar starting states. Top-returning chunks are labeled <em>positive</em>, the rest
-                <em>negative</em> &mdash; auto-calibrating credit assignment to state difficulty.
-              </p>
-            </article>
-            <article class="paper-card">
-              <p class="step-index">Step 4 &middot; Iterate</p>
-              <h3 class="title is-5">Iterative Self-Improvement</h3>
-              <p>
-                Relabeled rollouts are appended to a cumulative dataset and the base model is re-fine-tuned from
-                scratch each cycle (avoiding distributional drift), then the loop repeats &mdash; reaching task
-                mastery after just two cycles.
-              </p>
-            </article>
-          </div>
-
-          <figure class="paper-figure">
-            <img src="./static/images/reward.png"
-                 alt="Per-step reward predictions and chunk-level advantage labels on a failed Box Packing episode and a successful Cup Insertion episode.">
-            <figcaption>
-              <strong>Reward predictions and advantage labels on deployment rollouts.</strong>
-              The reward model outputs per-step quality scores that are aggregated into per-chunk returns and
-              binarized into positive/negative advantage labels via retrieval-based comparison against chunks from
-              similar starting states. Labeling operates at the <em>chunk</em> level, not the episode level: even
-              within a failed rollout, well-executed chunks still receive positive labels, providing fine-grained
-              credit assignment that episode-level success/failure annotations cannot capture.
-            </figcaption>
-          </figure>
+        <div class="feature-copy">
+          <p class="card-step"><span class="card-num">01</span>Score</p>
+          <h3>A generative reward model watches every rollout</h3>
+          <p>
+            A <em>select-then-distill</em> scheme: human pairwise preferences select calibrated rewards from
+            VLM-generated candidates, distilled into a reusable dense reward model. It scores task progress,
+            execution quality, and safety at every step — so credit is assigned chunk by chunk, not per episode.
+          </p>
         </div>
       </div>
+
+      <div class="feature flip reveal">
+        <div class="feature-media">
+          <div class="clip-frame">
+            <video muted loop playsinline preload="metadata" poster="./static/images/anim_encode_poster.jpg" src="./static/videos/anim_encode.mp4"
+                   aria-label="Animation: a rollout chunk becomes a standard SFT example with the advantage token written into the instruction"></video>
+          </div>
+        </div>
+        <div class="feature-copy">
+          <p class="card-step"><span class="card-num">02</span>Relabel</p>
+          <h3>Reward feedback becomes ordinary SFT data</h3>
+          <p>
+            Each action chunk is compared, via visual retrieval, against chunks from similar starting states,
+            and earns a positive or negative <em>advantage token</em>. The chunk then becomes a standard SFT
+            example: the observation and action exactly as they happened, the advantage written into the
+            instruction itself — in plain text. To the API, this is just supervised data.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature reveal">
+        <div class="feature-media">
+          <div class="clip-frame">
+            <video muted loop playsinline preload="metadata" poster="./static/images/anim_condition_poster.jpg" src="./static/videos/anim_condition.mp4"
+                   aria-label="Animation: at inference the advantage token is flipped to True and the policy steers toward preferred behavior"></video>
+          </div>
+        </div>
+        <div class="feature-copy">
+          <p class="card-step"><span class="card-num">03</span>Condition</p>
+          <h3>At inference, the token becomes a switch</h3>
+          <p>
+            During training the advantage token was a label. At deployment it is flipped one way — <em>True</em>.
+            Conditioned on the positive token, the policy steers toward what humans prefer, and away from what
+            the reward model rejected.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature flip reveal">
+        <div class="feature-media">
+          <div class="clip-frame">
+            <video muted loop playsinline preload="metadata" poster="./static/images/anim_flywheel_poster.jpg" src="./static/videos/anim_flywheel.mp4"
+                   aria-label="Animation: the CLIFT flywheel — deploy, score, relabel, fine-tune — dataset grows and the policy ticks from pi-0 to pi-2"></video>
+          </div>
+        </div>
+        <div class="feature-copy">
+          <p class="card-step"><span class="card-num">04</span>Iterate</p>
+          <h3>Deploy &rarr; score &rarr; relabel &rarr; fine&#8209;tune &mdash; then again</h3>
+          <p>
+            Relabeled rollouts are appended to a cumulative dataset and the base model is re-fine-tuned from
+            scratch each cycle, avoiding distributional drift. Every cycle produces a stronger task
+            specialist — reaching task mastery after just two.
+          </p>
+        </div>
+      </div>
+
+      <figure class="figure reveal">
+        <div class="figure-plate">
+          <img src="./static/images/reward.png" loading="lazy"
+               alt="Per-step reward predictions and chunk-level advantage labels on a failed Box Packing episode and a successful Cup Insertion episode.">
+        </div>
+        <figcaption>
+          <strong>Reward predictions and advantage labels on deployment rollouts.</strong>
+          The reward model outputs per-step quality scores that are aggregated into per-chunk returns and
+          binarized into positive/negative advantage labels via retrieval-based comparison against chunks from
+          similar starting states. Labeling operates at the <em>chunk</em> level, not the episode level: even
+          within a failed rollout, well-executed chunks still receive positive labels — fine-grained credit
+          assignment that episode-level success/failure annotations cannot capture.
+        </figcaption>
+      </figure>
     </div>
   </section>
 
-  <section class="section" id="experiments">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column is-full-width">
-          <p class="section-kicker">Experiments</p>
-          <h2 class="title is-3">Real-Humanoid Evaluation</h2>
-          <div class="content has-text-justified">
-            <p>
-              We evaluate on a real Unitree&nbsp;G1 humanoid across three agile, contact-rich tasks of increasing
-              complexity. Although tabletop, they are not fixed-base problems: the humanoid balances with its whole
-              body throughout, so lower-body motions continually shift the camera viewpoint, end-effector pose, and
-              contact geometry seen by the policy. Demonstrations are collected through whole-body VR teleoperation,
-              and the policy is deployed on the same robot&ndash;controller stack used for evaluation.
-            </p>
-          </div>
+  <!-- ================= experiments ================= -->
+  <section class="section" id="experiments" aria-labelledby="experiments-h">
+    <div class="container">
+      <p class="section-kicker">Experiments</p>
+      <h2 class="section-title" id="experiments-h">Real-humanoid evaluation</h2>
+      <div class="prose">
+        <p>
+          We evaluate on a real Unitree&nbsp;G1 humanoid across three agile, contact-rich tasks of increasing
+          complexity. Although tabletop, they are not fixed-base problems: the humanoid balances with its whole
+          body throughout, so lower-body motions continually shift the camera viewpoint, end-effector pose, and
+          contact geometry seen by the policy. Demonstrations are collected through whole-body VR teleoperation,
+          and the policy is deployed on the same robot&ndash;controller stack used for evaluation.
+        </p>
+      </div>
 
-          <figure class="paper-figure figure-narrow">
-            <img src="./static/images/teleop.png"
+      <figure class="figure reveal">
+          <div class="figure-plate">
+            <img src="./static/images/teleop.png" loading="lazy"
                  alt="Whole-body teleoperation setup: an operator in a VR headset and controllers driving a Unitree G1 humanoid.">
-            <figcaption>
-              <strong>Whole-body teleoperation setup.</strong>
-              The operator wears a VR headset, two handheld controllers, and two ankle IMU trackers, which together
-              yield a real-time full-body SMPL pose that the whole-body controller maps to robot joint commands on
-              the Unitree&nbsp;G1 (equipped with three-finger hands and head-mounted ego/wide cameras).
-            </figcaption>
-          </figure>
-
-          <figure class="paper-figure">
-            <img src="./static/images/tasks.png"
+          </div>
+          <figcaption>
+            <strong>Whole-body teleoperation.</strong>
+            A VR headset, two handheld controllers, and two ankle IMU trackers yield a real-time full-body SMPL
+            pose that the whole-body controller maps to joint commands on the Unitree&nbsp;G1.
+          </figcaption>
+      </figure>
+      <figure class="figure reveal">
+          <div class="figure-plate">
+            <img src="./static/images/tasks.png" loading="lazy"
                  alt="Three Unitree G1 manipulation tasks: Box Packing, Cup Insertion, and Bimanual Plate Handover, each shown as a sequence of stages.">
-            <figcaption>
-              <strong>Humanoid manipulation task suite.</strong>
-              Three contact-rich Unitree&nbsp;G1 tasks of increasing complexity: <em>Box Packing</em> (single-object
-              packing), <em>Cup Insertion</em> (asymmetric bimanual precise insertion), and
-              <em>Bimanual Plate Handover</em> (coordinated bimanual transfer).
-            </figcaption>
-          </figure>
-
-          <div class="paper-card-grid findings-grid">
-            <article class="paper-card">
-              <h3 class="title is-5">CLIFT achieves task mastery</h3>
-              <p>
-                On GROD, two flywheel cycles lift the demonstration-trained policy to near-perfect success across all
-                three tasks &mdash; all through API-only access, with no additional human demonstrations.
-              </p>
-            </article>
-            <article class="paper-card">
-              <h3 class="title is-5">Generalizes across foundation models</h3>
-              <p>
-                The identical pipeline &mdash; same reward model, rollout budget, and advantage relabeling &mdash; also
-                improves the open-weight &pi;<sub>0.5</sub>, demonstrating that the non-invasive mechanism transfers
-                across foundation models and access regimes.
-              </p>
-            </article>
-            <article class="paper-card">
-              <h3 class="title is-5">Base-model strength sets the ceiling</h3>
-              <p>
-                Foundation-model choice matters even under API-only adaptation. A stronger model adapted through a
-                narrow SFT interface outperforms a weaker model granted full internal access via FiLM-style invasive
-                conditioning.
-              </p>
-            </article>
-            <article class="paper-card">
-              <h3 class="title is-5">Emergent behaviors</h3>
-              <p>
-                Closed-loop practice elicits corrective and pre-manipulation behaviors absent from the demonstrations,
-                such as reorienting an object before grasping or retrying a failed insertion.
-              </p>
-            </article>
           </div>
-        </div>
+          <figcaption>
+            <strong>Task suite.</strong>
+            Three contact-rich Unitree&nbsp;G1 tasks of increasing complexity: <em>Box Packing</em>,
+            <em>Cup Insertion</em> (asymmetric bimanual precise insertion), and <em>Bimanual Plate
+            Handover</em> (coordinated bimanual transfer).
+          </figcaption>
+      </figure>
+
+      <div class="card-grid">
+        <article class="card reveal">
+          <h3>CLIFT achieves task mastery</h3>
+          <p>
+            On GROD, two flywheel cycles lift the demonstration-trained policy to near-perfect success across all
+            three tasks — all through API-only access, with no additional human demonstrations.
+          </p>
+        </article>
+        <article class="card reveal">
+          <h3>Generalizes across foundation models</h3>
+          <p>
+            The identical pipeline — same reward model, rollout budget, and advantage relabeling — also
+            improves the open-weight &pi;<sub>0.5</sub>, demonstrating that the non-invasive mechanism transfers
+            across foundation models and access regimes.
+          </p>
+        </article>
+        <article class="card reveal">
+          <h3>Base-model strength sets the ceiling</h3>
+          <p>
+            Foundation-model choice matters even under API-only adaptation. A stronger model adapted through a
+            narrow SFT interface outperforms a weaker model granted full internal access via FiLM-style invasive
+            conditioning.
+          </p>
+        </article>
+        <article class="card reveal">
+          <h3>Emergent behaviors</h3>
+          <p>
+            Closed-loop practice elicits corrective and pre-manipulation behaviors absent from the demonstrations,
+            such as reorienting an object before grasping or retrying a failed insertion.
+          </p>
+        </article>
       </div>
     </div>
   </section>
 
-  <section class="section section-band" id="results">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column is-full-width">
-          <p class="section-kicker">Results</p>
-          <h2 class="title is-3">CLIFT Lifts Policies Across Models and Access Regimes</h2>
+  <!-- ================= results ================= -->
+  <section class="section section-alt" id="results" aria-labelledby="results-h">
+    <div class="container">
+      <p class="section-kicker">Results</p>
+      <h2 class="section-title" id="results-h">Generalist &rarr; specialist, in two cycles</h2>
 
-          <figure class="paper-figure">
-            <img src="./static/images/results.png"
-                 alt="Bar chart of success rate over two flywheel cycles for GROD and pi-0.5 variants across the three tasks.">
-            <figcaption>
-              <strong>CLIFT lifts humanoid manipulation policies across foundation models and access regimes.</strong>
-              Success rate (%, over 100 trials) across two flywheel cycles on three humanoid tasks. Applied to
-              Gemini Robotics On-Device, CLIFT iteratively improves the demonstration-trained baseline, reaching
-              higher performance at each cycle (i=0 is the SFT baseline, i=1 and i=2 are flywheel cycles). The same
-              pipeline also improves the open-weight &pi;<sub>0.5</sub>, but plateaus at a substantially lower ceiling.
-              An <em>invasive</em> adaptation of &pi;<sub>0.5</sub> that injects the preference signal directly via
-              FiLM-style conditioning still does not close the gap to GROD.
-            </figcaption>
-          </figure>
-
-          <div class="takeaway">
-            <p>
-              <strong>Two flywheel cycles of CLIFT push GROD to near-perfect success</strong> &mdash;
-              93&rarr;100% on Box Packing, 70&rarr;98% on Cup Insertion, and 53&rarr;96% on Bimanual Plate Handover
-              &mdash; using only the managed SFT API, with no additional human demonstrations and without ever
-              accessing model weights, gradients, likelihoods, or losses.
+      <div class="task-grid">
+        <article class="task-card reveal">
+          <div class="task-video">
+            <video muted loop playsinline preload="metadata" poster="./static/images/task_box_poster.jpg" src="./static/videos/task_box.mp4"
+                   aria-label="Autonomous rollout: box packing"></video>
+          </div>
+          <div class="task-meta">
+            <p class="task-name">Box packing</p>
+            <p class="task-nums">
+              <span class="num-base">93%</span>
+              <span class="num-arrow" aria-hidden="true">&rarr;</span>
+              <span class="num-final" data-count="100" data-from="93">100%</span>
+              <span class="num-delta">&#9650;&#8202;7</span>
             </p>
+            <p class="task-sub">SFT baseline &rarr; CLIFT, 2 cycles &middot; 100 trials</p>
           </div>
-
-          <div class="table-stack">
-            <div class="table-card">
-              <h3 class="title is-5">Success Rate: SFT Baseline vs. CLIFT (2 cycles)</h3>
-              <p class="table-caption">
-                Task success rate (%) over 100 trials per task. CLIFT uses the dense advantage-conditioned variant.
-                Highlighted rows are CLIFT-adapted policies.
-              </p>
-              <div class="table-container">
-                <table class="result-table">
-                  <thead>
-                    <tr>
-                      <th>Foundation Model</th>
-                      <th>Access Regime</th>
-                      <th>Stage</th>
-                      <th>Box Packing</th>
-                      <th>Cup Insertion</th>
-                      <th>Bimanual Plate Handover</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Gemini Robotics On-Device</td>
-                      <td>Closed-weight (API-only)</td>
-                      <td>SFT baseline</td>
-                      <td>93</td>
-                      <td>70</td>
-                      <td>53</td>
-                    </tr>
-                    <tr class="ours-row">
-                      <td>Gemini Robotics On-Device</td>
-                      <td>Closed-weight (API-only)</td>
-                      <td>+ CLIFT (2 cycles)</td>
-                      <td><strong>100</strong></td>
-                      <td><strong>98</strong></td>
-                      <td><strong>96</strong></td>
-                    </tr>
-                    <tr>
-                      <td>&pi;<sub>0.5</sub></td>
-                      <td>Open-weight</td>
-                      <td>SFT baseline</td>
-                      <td>59</td>
-                      <td>50</td>
-                      <td>5</td>
-                    </tr>
-                    <tr class="ours-row">
-                      <td>&pi;<sub>0.5</sub></td>
-                      <td>Open-weight</td>
-                      <td>+ CLIFT (2 cycles)</td>
-                      <td><strong>76</strong></td>
-                      <td><strong>56</strong></td>
-                      <td><strong>30</strong></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+        </article>
+        <article class="task-card reveal">
+          <div class="task-video">
+            <video muted loop playsinline preload="metadata" poster="./static/images/task_cup_poster.jpg" src="./static/videos/task_cup.mp4"
+                   aria-label="Autonomous rollout: cup insertion"></video>
           </div>
-
-          <figure class="paper-figure">
-            <img src="./static/images/qualitative.png"
-                 alt="Emergent behaviors after closed-loop fine-tuning: box reorientation before grasping, and recovery from a failed cup insertion.">
-            <figcaption>
-              <strong>Emergent behaviors after closed-loop fine-tuning.</strong>
-              By the final flywheel cycle, GROD exhibits behaviors not present in the teleoperated demonstrations.
-              <em>Top (Box Packing):</em> the policy reorients the box with its fingers and wrist to set up an easier
-              grasp before lifting. <em>Bottom (Cup Insertion):</em> the policy recovers from a failed first insertion
-              attempt and succeeds on a second try, rather than aborting.
-            </figcaption>
-          </figure>
-
-          <div class="content has-text-justified">
-            <h3 class="title is-4">Conclusion</h3>
-            <p>
-              We provide one of the first empirical studies of managed-API adaptation on a real humanoid. Direct SFT
-              through the API already substantially outperforms a leading open-weight VLA trained on the same
-              demonstrations, yet still falls short of deployment-level mastery. <span class="method-name">CLIFT</span>
-              closes this gap by turning deployment-time reward feedback into API-compatible supervised data, pushing
-              Gemini Robotics On-Device to near-perfect success after two flywheel cycles. This shows that managed SFT
-              APIs can serve not only as customization interfaces, but as practical interfaces for closed-loop policy
-              improvement &mdash; offering a path toward task mastery without &ldquo;opening the model box.&rdquo;
+          <div class="task-meta">
+            <p class="task-name">Cup insertion</p>
+            <p class="task-nums">
+              <span class="num-base">70%</span>
+              <span class="num-arrow" aria-hidden="true">&rarr;</span>
+              <span class="num-final" data-count="98" data-from="70">98%</span>
+              <span class="num-delta">&#9650;&#8202;28</span>
             </p>
+            <p class="task-sub">SFT baseline &rarr; CLIFT, 2 cycles &middot; 100 trials</p>
           </div>
+        </article>
+        <article class="task-card reveal">
+          <div class="task-video">
+            <video muted loop playsinline preload="metadata" poster="./static/images/task_plate_poster.jpg" src="./static/videos/task_plate.mp4"
+                   aria-label="Autonomous rollout: bimanual plate handover"></video>
+          </div>
+          <div class="task-meta">
+            <p class="task-name">Bimanual plate handover</p>
+            <p class="task-nums">
+              <span class="num-base">53%</span>
+              <span class="num-arrow" aria-hidden="true">&rarr;</span>
+              <span class="num-final" data-count="96" data-from="53">96%</span>
+              <span class="num-delta">&#9650;&#8202;43</span>
+            </p>
+            <p class="task-sub">SFT baseline &rarr; CLIFT, 2 cycles &middot; 100 trials</p>
+          </div>
+        </article>
+      </div>
+
+      <figure class="figure reveal">
+        <div class="figure-plate">
+          <img src="./static/images/results.png" loading="lazy"
+               alt="Bar chart of success rate over two flywheel cycles for GROD and pi-0.5 variants across the three tasks.">
         </div>
+        <figcaption>
+          <strong>CLIFT lifts humanoid manipulation policies across foundation models and access regimes.</strong>
+          Success rate (%, over 100 trials) across two flywheel cycles on three humanoid tasks. Applied to
+          Gemini Robotics On-Device, CLIFT iteratively improves the demonstration-trained baseline at each cycle
+          (i=0 is the SFT baseline; i=1 and i=2 are flywheel cycles). The same pipeline also improves the
+          open-weight &pi;<sub>0.5</sub>, but plateaus at a substantially lower ceiling. An <em>invasive</em>
+          adaptation of &pi;<sub>0.5</sub> that injects the preference signal directly via FiLM-style conditioning
+          still does not close the gap to GROD.
+        </figcaption>
+      </figure>
+
+      <div class="table-card reveal">
+        <h3>Success rate: SFT baseline vs. CLIFT (2 cycles)</h3>
+        <p class="table-caption">
+          Task success rate (%) over 100 trials per task. CLIFT uses the dense advantage-conditioned variant.
+          Highlighted rows are CLIFT-adapted policies.
+        </p>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Foundation model</th>
+                <th scope="col">Access regime</th>
+                <th scope="col">Stage</th>
+                <th scope="col">Box packing</th>
+                <th scope="col">Cup insertion</th>
+                <th scope="col">Plate handover</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Gemini Robotics On-Device</td>
+                <td>Closed-weight (API-only)</td>
+                <td>SFT baseline</td>
+                <td>93</td><td>70</td><td>53</td>
+              </tr>
+              <tr class="ours">
+                <td>Gemini Robotics On-Device</td>
+                <td>Closed-weight (API-only)</td>
+                <td>+ CLIFT (2 cycles)</td>
+                <td><strong>100</strong></td><td><strong>98</strong></td><td><strong>96</strong></td>
+              </tr>
+              <tr>
+                <td>&pi;<sub>0.5</sub></td>
+                <td>Open-weight</td>
+                <td>SFT baseline</td>
+                <td>59</td><td>50</td><td>5</td>
+              </tr>
+              <tr class="ours">
+                <td>&pi;<sub>0.5</sub></td>
+                <td>Open-weight</td>
+                <td>+ CLIFT (2 cycles)</td>
+                <td><strong>76</strong></td><td><strong>56</strong></td><td><strong>30</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <figure class="figure reveal">
+        <div class="figure-plate">
+          <img src="./static/images/qualitative.png" loading="lazy"
+               alt="Emergent behaviors after closed-loop fine-tuning: box reorientation before grasping, and recovery from a failed cup insertion.">
+        </div>
+        <figcaption>
+          <strong>Emergent behaviors after closed-loop fine-tuning.</strong>
+          By the final flywheel cycle, GROD exhibits behaviors not present in the teleoperated demonstrations.
+          <em>Top (box packing):</em> the policy reorients the box with its fingers and wrist to set up an easier
+          grasp before lifting. <em>Bottom (cup insertion):</em> the policy recovers from a failed first insertion
+          attempt and succeeds on a second try, rather than aborting.
+        </figcaption>
+      </figure>
+
+      <div class="prose">
+        <p class="section-kicker">Takeaway</p>
+        <h3 class="sub-title">Conclusion</h3>
+        <p>
+          We provide one of the first empirical studies of managed-API adaptation on a real humanoid. Direct SFT
+          through the API already substantially outperforms a leading open-weight VLA trained on the same
+          demonstrations, yet still falls short of deployment-level mastery. <span class="grad-inline">CLIFT</span>
+          closes this gap by turning deployment-time reward feedback into API-compatible supervised data, pushing
+          Gemini Robotics On-Device to near-perfect success after two flywheel cycles. Managed SFT APIs can serve
+          not only as customization interfaces, but as practical interfaces for closed-loop policy improvement —
+          a path toward task mastery without &ldquo;opening the model box.&rdquo;
+        </p>
       </div>
     </div>
   </section>
+
+  <!-- ================= bibtex ================= -->
+  <section class="section" id="bibtex" aria-labelledby="bibtex-h">
+    <div class="container">
+      <p class="section-kicker">Citation</p>
+      <h2 class="section-title" id="bibtex-h">BibTeX</h2>
+      <div class="bibtex-card">
+        <button class="copy-btn" id="copy-bibtex" type="button">Copy</button>
+<pre id="bibtex-text">@misc{chen2026clift,
+  title  = {{CLIFT}: Turning {Gemini Robotics On-Device} into Humanoid Specialists
+            via Non-Invasive Closed-Loop Iterative Fine-Tuning},
+  author = {Chen, Yuxin and Srikanth, Hari and Jew, Nathan and Wu, Menglin and
+            Wang, Pengcheng and Ren, Junli and Tomizuka, Masayoshi and Xu, Peng and
+            Xie, Jinyu and Tian, Ran},
+  year   = {2026},
+  eprint = {2607.29172},
+  archivePrefix = {arXiv},
+  url    = {https://arxiv.org/abs/2607.29172}
+}</pre>
+      </div>
+    </div>
+  </section>
+
 </main>
 
-<footer class="footer">
-  <div class="container is-max-desktop has-text-centered">
-    <p>
-      CoRL 2026 Anonymous Submission &middot; Page anonymized for double-blind review.
-    </p>
-  </div>
-</footer>
 
 </body>
 </html>
