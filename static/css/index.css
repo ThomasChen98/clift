@@ -201,6 +201,16 @@ body {
   line-height: 1.75;
 }
 .authors sup { color: var(--text-faint); font-weight: 600; font-size: 11px; }
+.authors a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(91, 157, 255, 0.32);
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+.authors a:hover {
+  color: var(--brand-bright);
+  border-bottom-color: var(--brand-bright);
+}
 .affils {
   margin: 0 0 32px;
   font-family: var(--mono);
