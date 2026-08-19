@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CLIFT — Talk Slides</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./slides.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237cb3ff'/%3E%3Cstop offset='1' stop-color='%23a78bfa'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='7' fill='%23000'/%3E%3Cpath d='M21.5 11.2a6.4 6.4 0 1 0 0 9.6' fill='none' stroke='url(%23g)' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <script defer src="./slides.js"></script>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- 1 · title -->
+  <section class="slide slide-title slide-full">
+    <div class="stage">
+      <div class="glow" aria-hidden="true"></div>
+      <div class="center-col">
+        <h1 class="wordmark grad">CLIFT</h1>
+        <p class="deck-line">Turning Gemini Robotics On&#8209;Device into Humanoid Specialists<br>
+          via Non&#8209;Invasive Closed&#8209;Loop Iterative Fine&#8209;Tuning</p>
+        <p class="authors">
+          Yuxin Chen<sup>1</sup>, Hari Srikanth<sup>1</sup>, Nathan Jew<sup>1</sup>, Menglin Wu<sup>1</sup>,
+          Pengcheng Wang<sup>1</sup>, Junli Ren<sup>1</sup>,<br>
+          Masayoshi Tomizuka<sup>1</sup>, Peng Xu<sup>2</sup>, Jinyu Xie<sup>2</sup>, Ran &ldquo;Thomas&rdquo; Tian<sup>1,3</sup>
+        </p>
+        <p class="affils"><sup>1</sup>UC Berkeley&ensp;&middot;&ensp;<sup>2</sup>Google DeepMind&ensp;&middot;&ensp;<sup>3</sup>NVIDIA Research</p>
+        <div class="logo-row">
+          <img src="../static/images/logo_berkeley.svg" alt="UC Berkeley" style="height:40px">
+          <img src="../static/images/logo_gdm.svg" alt="Google DeepMind" style="height:32px">
+          <img src="../static/images/logo_nvidia.svg" alt="NVIDIA" style="height:30px">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · background: robot FMs are here -->
+  <section class="slide">
+    <div class="stage">
+      <h2 class="slide-h">Robot foundation models are getting remarkably capable</h2>
+      <div class="tiles">
+        <div class="tile">
+          <video muted loop playsinline preload="metadata" poster="../static/images/bg_aloha_poster.jpg?v=3" src="../static/videos/bg_aloha.mp4?v=3"></video>
+          <img class="print-poster" src="../static/images/bg_aloha_poster.jpg?v=3" alt="">
+          <p class="tile-name">Bimanual manipulation</p>
+        </div>
+        <div class="tile">
+          <video muted loop playsinline preload="metadata" poster="../static/images/bg_humanoid_poster.jpg?v=3" src="../static/videos/bg_humanoid.mp4?v=3"></video>
+          <img class="print-poster" src="../static/images/bg_humanoid_poster.jpg?v=3" alt="">
+          <p class="tile-name">Humanoids</p>
+        </div>
+        <div class="tile">
+          <video muted loop playsinline preload="metadata" poster="../static/images/bg_hero_poster.jpg?v=3" src="../static/videos/bg_hero.mp4?v=3"></video>
+          <img class="print-poster" src="../static/images/bg_hero_poster.jpg?v=3" alt="">
+          <p class="tile-name">Language-conditioned skills</p>
+        </div>
+      </div>
+      <p class="note center">One generalist policy — many tasks, many embodiments, out of the box.&ensp;<span class="credit">footage: Google DeepMind, Gemini Robotics</span></p>
+    </div>
+  </section>
+
+  <!-- 3 · background: LLMs behind an API -->
+  <section class="slide">
+    <div class="stage">
+      <h2 class="slide-h">In language, capability already lives behind an API</h2>
+      <div class="cols cols-media-heavy">
+        <div class="col-media">
+          <div class="code-card">
+<pre><span class="c-dim">$</span> curl https://api.openai.com/v1/<span class="c-hl">fine_tuning</span>/jobs \
+    -H "Authorization: Bearer $OPENAI_API_KEY" \
+    -d '{
+      "model": "gpt-4o",
+      "training_file": <span class="c-str">"file-demos-abc123"</span>
+    }'
+
+<span class="c-dim">{ "object": "fine_tuning.job", "status": "queued", ... }</span>
+<span class="c-pos">&rarr; ft:gpt-4o:your-org::a1b2c3</span></pre>
+          </div>
+        </div>
+        <div class="col-text">
+          <ul>
+            <li>The strongest language models are <strong>closed-weight</strong> — no parameters, gradients, or logits for downstream users</li>
+            <li>Adaptation is a managed service: <strong>upload training data, receive a tuned model</strong></li>
+            <li>This is the norm across the frontier</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · background: robotics follows -->
+  <section class="slide">
+    <div class="stage">
+      <h2 class="slide-h">Robotics is following the same playbook</h2>
+      <div class="cols cols-media-heavy">
+        <div class="col-media">
+          <div class="clip"><video muted loop playsinline preload="metadata" poster="../static/images/anim_intro_poster.jpg?v=3" src="../static/videos/anim_intro.mp4?v=3"></video>
+          <img class="print-poster" src="../static/images/anim_intro_poster.jpg?v=3" alt=""></div>
+        </div>
+        <div class="col-text">
+          <ul>
+            <li>The most capable robot foundation models <strong>may not be fully open-weight</strong></li>
+            <li>Capability lives behind a service, not a checkpoint</li>
+            <li>Developers may get only one interface: <strong>a managed SFT API</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · GROD -->
+  <section class="slide">
+    <div class="stage">
+      <h2 class="slide-h">Gemini Robotics On&#8209;Device: a powerful foundation</h2>
+      <div class="cols">
+        <div class="col-text">
+          <ul>
+            <li>A powerful robot foundation model, designed to run <strong>locally on robots</strong></li>
+            <li>Exposed through a <strong>managed SFT API</strong></li>
+            <li>Fine-tuned on the same demonstrations, it already far outperforms open-weight alternatives</li>
+          </ul>
+          <div class="hchart">
+            <div class="hlegend">
+              <span class="hkey"><i class="hswatch hswatch-grod"></i>GROD (SFT)</span>
+              <span class="hkey"><i class="hswatch hswatch-pi"></i>&pi;<sub>0.5</sub> (SFT)</span>
+            </div>
+            <div class="hgroup">
+              <p class="hlabel">Box packing</p>
+              <div class="hrow"><div class="htrack"><i class="hfill" style="--w: 93%"></i></div><span class="hval">93</span></div>
+              <div class="hrow"><div class="htrack"><i class="hfill hfill-dim" style="--w: 59%"></i></div><span class="hval">59</span></div>
+            </div>
+            <div class="hgroup">
+              <p class="hlabel">Cup insertion</p>
+              <div class="hrow"><div class="htrack"><i class="hfill" style="--w: 70%"></i></div><span class="hval">70</span></div>
+              <div class="hrow"><div class="htrack"><i class="hfill hfill-dim" style="--w: 50%"></i></div><span class="hval">50</span></div>
+            </div>
+            <div class="hgroup">
+              <p class="hlabel">Bimanual plate handover</p>
+              <div class="hrow"><div class="htrack"><i class="hfill" style="--w: 53%"></i></div><span class="hval">53</span></div>
+              <div class="hrow"><div class="htrack"><i class="hfill hfill-dim" style="--w: 5%"></i></div><span class="hval">5</span></div>
+            </div>
+            <p class="hfoot">success rate % &middot; 100 trials &middot; same demonstrations</p>
+          </div>
+        </div>
+        <div class="col-media">
+          <div class="clip"><video muted loop playsinline preload="metadata" poster="../static/images/anim_grod_poster.jpg?v=3" src="../static/videos/anim_grod.mp4?v=3"></video>
+          <img class="print-poster" src="../static/images/anim_grod_poster.jpg?v=3" alt=""></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · failures -->
+  <section class="slide">
+    <div class="stage">
+      <h2 class="slide-h">Imitation alone leaves a deployment gap</h2>
+      <div class="duo">
+        <div>
+          <div class="clip"><video muted playsinline preload="metadata" poster="../static/images/anim_trend_poster.jpg?v=7" src="../static/videos/anim_trend.mp4?v=7"></video>
+          <img class="print-poster" src="../static/images/anim_trend_poster.jpg" alt=""></div>
+          <p class="cap">Success rate slides as contact gets richer</p>
+        </div>
+        <div>
+          <div class="clip"><video muted loop playsinline preload="metadata" poster="../static/images/anim_fails_poster.jpg?v=3" src="../static/videos/anim_fails.mp4?v=3"></video>
+          <img class="print-poster" src="../static/images/anim_fails_poster.jpg?v=3" alt=""></div>
+          <div class="pillrow">
+            <span class="pill-tag">after deployment</span>
+            <span class="pill">covariate shift</span>
+            <span class="pill">real-world dynamics</span>
+            <span class="pill">controller-specific failures</span>
+          </div>
+        </div>
+      </div>
+      <p class="note center">A limit of SFT-only adaptation — for any policy, not any particular model.</p>
+    </div>
+  </section>
+
+  <!-- 5 · the wall -->
+  <section class="slide">
+    <div class="stage">
+      <h2 class="slide-h">Every door into closed-loop training is locked</h2>
+      <div class="cols cols-media-heavy">
+        <div class="col-media">
+          <div class="clip"><video muted loop playsinline preload="metadata" poster="../static/images/anim_locked_poster.jpg?v=6" src="../static/videos/anim_locked.mp4?v=6"></video>
+          <img class="print-poster" src="../static/images/anim_locked_poster.jpg?v=6" alt=""></div>
+        </div>
+        <div class="col-text">
+          <ul>
+            <li>Mastery takes practice: the robot must learn <strong>in closed loop</strong></li>
+            <li>Standard closed-loop learning needs <strong>gradients, losses, action likelihoods, custom objectives</strong></li>
+            <li>A closed-weight model exposes none of them — by design</li>
+          </ul>
+          <p class="note">The only access point: a managed SFT API.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · question -->
+  <section class="slide slide-full">
+    <div class="stage">
+      <div class="center-col statement">
+        <h2 class="big-q">How can a closed-weight model<br>learn in <em class="grad-inline">closed loop</em>?</h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · reveal -->
+  <section class="slide">
+    <div class="stage">
+      <h2 class="slide-h"><span class="grad-inline">CLIFT</span> — Closed-Loop Iterative Fine-Tuning</h2>
+      <div class="cols cols-media-heavy">
+        <div class="col-media">
+          <div class="clip"><video muted loop playsinline preload="metadata" poster="../static/images/anim_reveal_poster.jpg?v=3" src="../static/videos/anim_reveal.mp4?v=3"></video>
+          <img class="print-poster" src="../static/images/anim_reveal_poster.jpg?v=3" alt=""></div>
+        </div>
+        <div class="col-text">
+          <ul>
+            <li>We cannot open the model —<br><strong>but we can change what it learns from</strong></li>
+            <li>Not just expert demonstrations: the robot&rsquo;s <strong>entire deployment experience</strong></li>
+            <li>Successes, failures, and everything in between</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · method overview -->
+  <section class="slide">
+    <div class="stage">
+      <h2 class="slide-h">A deployment-time data flywheel — API-only, non-invasive</h2>
+      <div class="plate">
+        <img src="../static/images/teaser.png" alt="The CLIFT flywheel diagram">
+      </div>
+    </div>
+  </section>
+
+  <!-- 9a · reward training -->
+  <section class="slide">
+    <div class="stage">
+      <p class="kicker"><span class="step-num">01</span>Score</p>
+      <h2 class="slide-h">A reward model calibrated to human judgment</h2>
+      <div class="flow">
+        <div class="flow-stage">
+          <div class="flow-card">
+            <h3>VLM reward generator</h3>
+            <p><strong>K&thinsp;=&thinsp;12</strong> candidate dense reward functions per task, via temperature sampling</p>
+            <div class="chips"><span>r&#8321;</span><span>r&#8322;</span><span>&#8230;</span><span>r&#8321;&#8322;</span></div>
+          </div>
+        </div>
+        <div class="flow-arrow">&rarr;<span>select</span></div>
+        <div class="flow-stage">
+          <div class="flow-card">
+            <h3>A &nbsp;&gt;&nbsp; B</h3>
+            <div class="ab-pair">
+              <div class="ab-good"><video muted loop playsinline preload="metadata" src="../static/videos/ab_a.mp4?v=3"></video><span>A</span></div>
+              <div class="ab-bad"><video muted loop playsinline preload="metadata" src="../static/videos/ab_b.mp4?v=3"></video><span>B</span></div>
+            </div>
+            <p><strong>100 rollout pairs</strong>, judged side-by-side from three viewpoints by an expert</p>
+            <div class="chips"><span>cleaner grasps</span><span>smoother motion</span><span>safer contacts</span></div>
+          </div>
+        </div>
+        <div class="flow-arrow">&rarr;<span>distill</span></div>
+        <div class="flow-stage">
+          <div class="flow-card flow-card-hl">
+            <h3>&#10022; Dense reward model</h3>
+            <p>Qwen3-VL, regressed onto the ~200 preference-labeled rollouts &middot; per-step, reusable across cycles</p>
+            <div class="chips chips-pos"><span>progress</span><span>quality</span><span>safety</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="note center">Select: keep the candidates whose induced return rankings best match human preferences &middot; calibrate once, score every rollout.</p>
+    </div>
+  </section>
+
+  <!-- 9a2 · reward model concept -->
+  <section class="slide">
+    <div class="stage">
+      <p class="kicker"><span class="step-num">01</span>Score</p>
+      <h2 class="slide-h">What the reward model computes</h2>
+      <div class="clip clip-wide"><video muted loop playsinline preload="metadata" poster="../static/images/anim_rmconcept_poster.jpg" src="../static/videos/anim_rmconcept.mp4"></video>
+      <img class="print-poster" src="../static/images/anim_rmconcept_poster.jpg" alt=""></div>
+      <p class="note center">Observations + task context &rarr; dense per-frame rewards &middot; failures collapse to zero &middot; the signal that enables policy improvement.</p>
+    </div>
+  </section>
+
+  <!-- 9b · scoring -->
+  <section class="slide">
+    <div class="stage">
+      <p class="kicker"><span class="step-num">01</span>Score</p>
+      <h2 class="slide-h">The reward model watches every rollout</h2>
+      <div class="cols cols-media-heavy">
+        <div class="col-media">
+          <div class="clip"><video muted loop playsinline preload="metadata" poster="../static/images/anim_reward_poster.jpg?v=3" src="../static/videos/anim_reward.mp4?v=3"></video>
+          <img class="print-poster" src="../static/images/anim_reward_poster.jpg?v=3" alt=""></div>
+        </div>
+        <div class="col-text">
+          <ul>
+            <li>Scores <strong>task progress, execution quality, and safety</strong> at every step</li>
+            <li>Judges rollouts like a human operator</li>
+            <li>Credit assigned <strong>chunk by chunk</strong>, not per episode</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · relabel -->
+  <section class="slide">
+    <div class="stage">
+      <p class="kicker"><span class="step-num">02</span>Relabel</p>
+      <h2 class="slide-h">Reward feedback becomes ordinary SFT data</h2>
+      <div class="cols cols-media-heavy">
+        <div class="col-media">
+          <div class="clip"><video muted loop playsinline preload="metadata" poster="../static/images/anim_encode_poster.jpg?v=3" src="../static/videos/anim_encode.mp4?v=3"></video>
+          <img class="print-poster" src="../static/images/anim_encode_poster.jpg?v=3" alt=""></div>
+        </div>
+        <div class="col-text">
+          <ul>
+            <li>Each chunk compared, via visual retrieval, against chunks from similar states &rarr; <strong>advantage token</strong></li>
+            <li>Observation and action exactly as executed; the advantage written <strong>into the instruction</strong>, in plain text</li>
+            <li>To the API, this is just supervised data</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10b · retrieval evidence -->
+  <section class="slide">
+    <div class="stage">
+      <p class="kicker"><span class="step-num">02</span>Relabel</p>
+      <h2 class="slide-h">Advantage is judged against similar states</h2>
+      <div class="plate">
+        <img src="../static/images/fig_retrieval.png?v=1" alt="Query observation and top-3 most similar observations retrieved from other rollouts, box packing task">
+      </div>
+      <p class="note center">Each chunk&rsquo;s return is compared against chunks from the most similar starting states, retrieved by visual similarity
+        — so credit auto-calibrates to state difficulty. Top-returning chunks earn <span style="color: var(--pos)">Advantage=True</span>.</p>
+    </div>
+  </section>
+
+  <!-- 11 · condition -->
+  <section class="slide">
+    <div class="stage">
+      <p class="kicker"><span class="step-num">03</span>Condition</p>
+      <h2 class="slide-h">At inference, the token becomes a switch</h2>
+      <div class="cols cols-media-heavy">
+        <div class="col-media">
+          <div class="clip"><video muted loop playsinline preload="metadata" poster="../static/images/anim_condition_poster.jpg?v=3" src="../static/videos/anim_condition.mp4?v=3"></video>
+          <img class="print-poster" src="../static/images/anim_condition_poster.jpg?v=3" alt=""></div>
+        </div>
+        <div class="col-text">
+          <ul>
+            <li>During training the advantage token was a label</li>
+            <li>At deployment it is flipped one way — <strong class="pos">True</strong></li>
+            <li>The policy steers toward what humans prefer, away from what the reward model rejected</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 · iterate -->
+  <section class="slide">
+    <div class="stage">
+      <p class="kicker"><span class="step-num">04</span>Iterate</p>
+      <h2 class="slide-h">Deploy &rarr; score &rarr; relabel &rarr; fine&#8209;tune — then again</h2>
+      <div class="cols cols-media-heavy">
+        <div class="col-media">
+          <div class="clip"><video muted loop playsinline preload="metadata" poster="../static/images/anim_flywheel_poster.jpg?v=3" src="../static/videos/anim_flywheel.mp4?v=3"></video>
+          <img class="print-poster" src="../static/images/anim_flywheel_poster.jpg?v=3" alt=""></div>
+        </div>
+        <div class="col-text">
+          <ul>
+            <li>Relabeled rollouts appended to a <strong>cumulative dataset</strong></li>
+            <li>Base model re-fine-tuned <strong>from scratch</strong> each cycle — avoids distributional drift</li>
+            <li>Each cycle: a stronger task specialist</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 · setup -->
+  <section class="slide">
+    <div class="stage">
+      <h2 class="slide-h">Real Unitree G1 humanoid &middot; three contact-rich tasks</h2>
+      <div class="cols cols-even">
+        <div class="col-media">
+          <div class="plate plate-photo"><img src="../static/images/teleop.png" alt="Whole-body VR teleoperation"></div>
+          <p class="cap">Whole-body VR teleoperation for demonstrations</p>
+        </div>
+        <div class="col-media">
+          <div class="plate"><img src="../static/images/tasks.png" alt="Task suite"></div>
+          <p class="cap">Box packing &middot; cup insertion &middot; bimanual plate handover</p>
+        </div>
+      </div>
+      <p class="note center">Whole-body balancing throughout — viewpoint, end-effector pose and contact geometry keep shifting.</p>
+    </div>
+  </section>
+
+  <!-- 14 · results -->
+  <section class="slide" id="results-slide">
+    <div class="stage">
+      <h2 class="slide-h">Generalist &rarr; specialist, in two cycles</h2>
+      <div class="tiles">
+        <div class="tile">
+          <video muted loop playsinline preload="metadata" poster="../static/images/task_box_poster.jpg?v=3" src="../static/videos/task_box.mp4?v=3"></video>
+          <img class="print-poster" src="../static/images/task_box_poster.jpg?v=3" alt="">
+          <p class="tile-name">Box packing</p>
+          <p class="tile-nums"><span class="base">93%</span><span class="arr">&rarr;</span><span class="fin" data-count="100" data-from="93">100%</span></p>
+        </div>
+        <div class="tile">
+          <video muted loop playsinline preload="metadata" poster="../static/images/task_cup_poster.jpg?v=3" src="../static/videos/task_cup.mp4?v=3"></video>
+          <img class="print-poster" src="../static/images/task_cup_poster.jpg?v=3" alt="">
+          <p class="tile-name">Cup insertion</p>
+          <p class="tile-nums"><span class="base">70%</span><span class="arr">&rarr;</span><span class="fin" data-count="98" data-from="70">98%</span></p>
+        </div>
+        <div class="tile">
+          <video muted loop playsinline preload="metadata" poster="../static/images/task_plate_poster.jpg?v=3" src="../static/videos/task_plate.mp4?v=3"></video>
+          <img class="print-poster" src="../static/images/task_plate_poster.jpg?v=3" alt="">
+          <p class="tile-name">Bimanual plate handover</p>
+          <p class="tile-nums"><span class="base">53%</span><span class="arr">&rarr;</span><span class="fin" data-count="96" data-from="53">96%</span></p>
+        </div>
+      </div>
+      <p class="note center">Success rate over 100 trials per task &middot; API-only &middot; no additional human demonstrations</p>
+    </div>
+  </section>
+
+  <!-- 15 · beyond GROD -->
+  <section class="slide">
+    <div class="stage">
+      <h2 class="slide-h">The mechanism transfers — the base model sets the ceiling</h2>
+      <div class="cols">
+        <div class="col-text">
+          <ul>
+            <li>Same pipeline improves open-weight &pi;<sub>0.5</sub>: 59/50/5 &rarr; <strong>76/56/30</strong> — but plateaus far lower</li>
+            <li>A stronger model through a <strong>narrow SFT interface</strong> beats a weaker model with full internal access (FiLM-style invasive conditioning)</li>
+            <li>Emergent behaviors after closed-loop practice: reorienting before grasping, retrying failed insertions</li>
+          </ul>
+        </div>
+        <div class="col-media">
+          <div class="plate"><img src="../static/images/results.png" alt="Results across models and access regimes"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 · closing -->
+  <section class="slide slide-title slide-full">
+    <div class="stage">
+      <div class="glow" aria-hidden="true"></div>
+      <div class="center-col">
+        <h1 class="wordmark grad">CLIFT</h1>
+        <p class="deck-line">Task mastery for closed-weight robot foundation models —<br>
+          <strong>without ever opening the model box.</strong></p>
+        <p class="affils">arxiv.org/abs/2607.29172&ensp;&middot;&ensp;thomaschen98.github.io/clift</p>
+        <div class="logo-row">
+          <img src="../static/images/logo_berkeley.svg" alt="UC Berkeley" style="height:36px">
+          <img src="../static/images/logo_gdm.svg" alt="Google DeepMind" style="height:29px">
+          <img src="../static/images/logo_nvidia.svg" alt="NVIDIA" style="height:27px">
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="hud" aria-hidden="true">
+  <button class="hud-btn" id="prev" aria-label="Previous slide">&#8592;</button>
+  <span class="hud-count" id="count">1 / 16</span>
+  <button class="hud-btn" id="next" aria-label="Next slide">&#8594;</button>
+</div>
+<div class="deck-progress" aria-hidden="true"><i id="deck-bar"></i></div>
+
+</body>
+</html>
