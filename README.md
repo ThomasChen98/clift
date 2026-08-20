@@ -3,7 +3,7 @@
 Website for **CLIFT: Turning Gemini Robotics On-Device into Humanoid Specialists via
 Non-Invasive Closed-Loop Iterative Fine-Tuning**.
 
-Live at <https://thomaschen98.github.io/clift/>
+Live at <https://clift-robot.github.io/>
 
 A single-page, dependency-free static site (HTML + CSS + vanilla JS, no build step).
 The visual system — dark navy, Inter + JetBrains Mono, blue→violet gradient — is shared
@@ -33,8 +33,8 @@ Legacy files from the double-blind review page (`bulma.min.css`, `fontawesome.*`
 
 ## Deploy
 
-Served as a GitHub Pages project page from the default branch root. All asset paths are
-relative, so the `/clift/` subpath works without changes.
+Served as the clift-robot organization GitHub Pages site (repo clift-robot.github.io, main branch root). All asset paths are
+relative, so they work at the domain root.
 
 ## Still to fill in
 

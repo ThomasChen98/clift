@@ -26,16 +26,9 @@
         <p class="deck-line">Turning Gemini Robotics On&#8209;Device into Humanoid Specialists<br>
           via Non&#8209;Invasive Closed&#8209;Loop Iterative Fine&#8209;Tuning</p>
         <p class="authors">
-          Yuxin Chen<sup>1</sup>, Hari Srikanth<sup>1</sup>, Nathan Jew<sup>1</sup>, Menglin Wu<sup>1</sup>,
-          Pengcheng Wang<sup>1</sup>, Junli Ren<sup>1</sup>,<br>
-          Masayoshi Tomizuka<sup>1</sup>, Peng Xu<sup>2</sup>, Jinyu Xie<sup>2</sup>, Ran &ldquo;Thomas&rdquo; Tian<sup>1,3</sup>
+          Yuxin Chen, Hari Srikanth, Nathan Jew, Menglin Wu, Pengcheng Wang, Junli Ren,<br>
+          Masayoshi Tomizuka, Peng Xu, Jinyu Xie, Ran &ldquo;Thomas&rdquo; Tian
         </p>
-        <p class="affils"><sup>1</sup>UC Berkeley&ensp;&middot;&ensp;<sup>2</sup>Google DeepMind&ensp;&middot;&ensp;<sup>3</sup>NVIDIA Research</p>
-        <div class="logo-row">
-          <img src="../static/images/logo_berkeley.svg" alt="UC Berkeley" style="height:40px">
-          <img src="../static/images/logo_gdm.svg" alt="Google DeepMind" style="height:32px">
-          <img src="../static/images/logo_nvidia.svg" alt="NVIDIA" style="height:30px">
-        </div>
       </div>
     </div>
   </section>
@@ -279,17 +272,6 @@
     </div>
   </section>
 
-  <!-- 9a2 · reward model concept -->
-  <section class="slide">
-    <div class="stage">
-      <p class="kicker"><span class="step-num">01</span>Score</p>
-      <h2 class="slide-h">What the reward model computes</h2>
-      <div class="clip clip-wide"><video muted loop playsinline preload="metadata" poster="../static/images/anim_rmconcept_poster.jpg" src="../static/videos/anim_rmconcept.mp4"></video>
-      <img class="print-poster" src="../static/images/anim_rmconcept_poster.jpg" alt=""></div>
-      <p class="note center">Observations + task context &rarr; dense per-frame rewards &middot; failures collapse to zero &middot; the signal that enables policy improvement.</p>
-    </div>
-  </section>
-
   <!-- 9b · scoring -->
   <section class="slide">
     <div class="stage">
@@ -297,8 +279,8 @@
       <h2 class="slide-h">The reward model watches every rollout</h2>
       <div class="cols cols-media-heavy">
         <div class="col-media">
-          <div class="clip"><video muted loop playsinline preload="metadata" poster="../static/images/anim_reward_poster.jpg?v=3" src="../static/videos/anim_reward.mp4?v=3"></video>
-          <img class="print-poster" src="../static/images/anim_reward_poster.jpg?v=3" alt=""></div>
+          <div class="clip"><video muted loop playsinline preload="metadata" poster="../static/images/anim_reward_poster.jpg?v=4" src="../static/videos/anim_reward.mp4?v=4"></video>
+          <img class="print-poster" src="../static/images/anim_reward_poster.jpg?v=4" alt=""></div>
         </div>
         <div class="col-text">
           <ul>
@@ -311,6 +293,73 @@
     </div>
   </section>
 
+  <!-- 9c · advantage labeling process -->
+  <section class="slide">
+    <div class="stage">
+      <p class="kicker"><span class="step-num">02</span>Relabel</p>
+      <h2 class="slide-h">How a chunk earns its advantage label</h2>
+      <div class="flow flow-eq">
+        <div class="flow-stage">
+          <div class="flow-card">
+            <h3>Return</h3>
+            <div class="figzone">
+              <svg class="mini-fig" viewBox="0 0 300 100" aria-hidden="true">
+                <defs><linearGradient id="winfill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5b9dff" stop-opacity="0.25"/><stop offset="1" stop-color="#5b9dff" stop-opacity="0.02"/></linearGradient></defs>
+                <line x1="6" y1="88" x2="294" y2="88" stroke="rgba(141,163,192,0.25)" stroke-width="1"/>
+                <path d="M96,58 L120,44 150,33 180,37 214,28 L214,88 L96,88 Z" fill="url(#winfill)"/>
+                <line x1="96" y1="16" x2="96" y2="88" stroke="rgba(124,179,255,0.55)" stroke-width="1" stroke-dasharray="3 3"/>
+                <line x1="214" y1="16" x2="214" y2="88" stroke="rgba(124,179,255,0.55)" stroke-width="1" stroke-dasharray="3 3"/>
+                <polyline points="10,78 40,72 70,66 96,58" fill="none" stroke="rgba(91,157,255,0.35)" stroke-width="2.5" stroke-linecap="round"/>
+                <polyline points="96,58 120,44 150,33 180,37 214,28" fill="none" stroke="#5b9dff" stroke-width="3" stroke-linecap="round"/>
+                <polyline points="214,28 250,26 290,24" fill="none" stroke="rgba(91,157,255,0.35)" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="96" cy="58" r="3.5" fill="#eff6ff"/><circle cx="214" cy="28" r="3.5" fill="#eff6ff"/>
+                <text x="155" y="10" fill="#7cb3ff" font-size="11" font-family="JetBrains Mono, monospace" text-anchor="middle">1.8 s</text>
+                <text x="292" y="84" fill="#7d8fa9" font-size="10" font-family="JetBrains Mono, monospace" text-anchor="end">t &#8594;</text>
+              </svg>
+            </div>
+            <p class="formula">G(&tau;) = &Sigma; &gamma;<sup>&Delta;t</sup> R<sub>&theta;</sub>(o, &#8467;)</p>
+            <p class="cardline">the chunk&rsquo;s discounted return over its window</p>
+          </div>
+        </div>
+        <div class="flow-arrow">&rarr;<span>retrieve</span></div>
+        <div class="flow-stage">
+          <div class="flow-card">
+            <h3>Similar states</h3>
+            <div class="figzone">
+              <div class="thumbrow">
+                <figure class="thumb thumb-q"><img src="../static/images/ret_q.png" alt="query observation"><figcaption>query</figcaption></figure>
+                <figure class="thumb"><img src="../static/images/ret_m1.png" alt="retrieved match 1"><figcaption>match 1</figcaption></figure>
+                <figure class="thumb"><img src="../static/images/ret_m2.png" alt="retrieved match 2"><figcaption>match 2</figcaption></figure>
+              </div>
+            </div>
+            <p class="cardline">DINOv3 cosine &middot; best frame per rollout<br>their returns form the comparison set</p>
+          </div>
+        </div>
+        <div class="flow-arrow">&rarr;<span>rank</span></div>
+        <div class="flow-stage">
+          <div class="flow-card flow-card-hl">
+            <h3>&#10022; Binarize</h3>
+            <div class="figzone">
+              <div class="ladder" aria-hidden="true">
+                <div class="lrow"><i class="lbar lpos" style="width: 88%"></i></div>
+                <div class="lrow lrow-q"><i class="lbar lpos" style="width: 64%"></i><em>this chunk</em></div>
+                <div class="pctline"><span>top 30%</span></div>
+                <div class="lrow"><i class="lbar" style="width: 55%"></i></div>
+                <div class="lrow"><i class="lbar" style="width: 46%"></i></div>
+                <div class="lrow"><i class="lbar" style="width: 37%"></i></div>
+                <div class="lrow"><i class="lbar" style="width: 28%"></i></div>
+                <div class="lrow"><i class="lbar" style="width: 20%"></i></div>
+              </div>
+            </div>
+            <div class="tokrow"><span class="tok-true">Advantage=True</span><span class="cardline">above the cut</span></div>
+            <div class="tokrow"><span class="tok-false">Advantage=False</span><span class="cardline">below the cut</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="note center">The percentile threshold auto-calibrates credit to state difficulty &middot; human demonstrations are always Advantage=True.</p>
+    </div>
+  </section>
+
   <!-- 10 · relabel -->
   <section class="slide">
     <div class="stage">
@@ -318,8 +367,8 @@
       <h2 class="slide-h">Reward feedback becomes ordinary SFT data</h2>
       <div class="cols cols-media-heavy">
         <div class="col-media">
-          <div class="clip"><video muted loop playsinline preload="metadata" poster="../static/images/anim_encode_poster.jpg?v=3" src="../static/videos/anim_encode.mp4?v=3"></video>
-          <img class="print-poster" src="../static/images/anim_encode_poster.jpg?v=3" alt=""></div>
+          <div class="clip"><video muted loop playsinline preload="metadata" poster="../static/images/anim_encode_poster.jpg?v=4" src="../static/videos/anim_encode.mp4?v=4"></video>
+          <img class="print-poster" src="../static/images/anim_encode_poster.jpg?v=4" alt=""></div>
         </div>
         <div class="col-text">
           <ul>
@@ -329,19 +378,6 @@
           </ul>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- 10b · retrieval evidence -->
-  <section class="slide">
-    <div class="stage">
-      <p class="kicker"><span class="step-num">02</span>Relabel</p>
-      <h2 class="slide-h">Advantage is judged against similar states</h2>
-      <div class="plate">
-        <img src="../static/images/fig_retrieval.png?v=1" alt="Query observation and top-3 most similar observations retrieved from other rollouts, box packing task">
-      </div>
-      <p class="note center">Each chunk&rsquo;s return is compared against chunks from the most similar starting states, retrieved by visual similarity
-        — so credit auto-calibrates to state difficulty. Top-returning chunks earn <span style="color: var(--pos)">Advantage=True</span>.</p>
     </div>
   </section>
 
@@ -373,8 +409,8 @@
       <h2 class="slide-h">Deploy &rarr; score &rarr; relabel &rarr; fine&#8209;tune — then again</h2>
       <div class="cols cols-media-heavy">
         <div class="col-media">
-          <div class="clip"><video muted loop playsinline preload="metadata" poster="../static/images/anim_flywheel_poster.jpg?v=3" src="../static/videos/anim_flywheel.mp4?v=3"></video>
-          <img class="print-poster" src="../static/images/anim_flywheel_poster.jpg?v=3" alt=""></div>
+          <div class="clip"><video muted loop playsinline preload="metadata" poster="../static/images/anim_flywheel_poster.jpg?v=5" src="../static/videos/anim_flywheel.mp4?v=5"></video>
+          <img class="print-poster" src="../static/images/anim_flywheel_poster.jpg?v=5" alt=""></div>
         </div>
         <div class="col-text">
           <ul>
@@ -436,18 +472,90 @@
   <!-- 15 · beyond GROD -->
   <section class="slide">
     <div class="stage">
-      <h2 class="slide-h">The mechanism transfers — the base model sets the ceiling</h2>
-      <div class="cols">
-        <div class="col-text">
-          <ul>
-            <li>Same pipeline improves open-weight &pi;<sub>0.5</sub>: 59/50/5 &rarr; <strong>76/56/30</strong> — but plateaus far lower</li>
-            <li>A stronger model through a <strong>narrow SFT interface</strong> beats a weaker model with full internal access (FiLM-style invasive conditioning)</li>
-            <li>Emergent behaviors after closed-loop practice: reorienting before grasping, retrying failed insertions</li>
-          </ul>
+      <h2 class="slide-h">Emergent behaviors from closed-loop practice</h2>
+      <div class="duo">
+        <div>
+          <div class="clip clip-43"><video muted loop playsinline preload="metadata" poster="../static/images/emerge_box_poster.jpg" src="../static/videos/emerge_box.mp4"></video>
+          <img class="print-poster" src="../static/images/emerge_box_poster.jpg" alt=""></div>
+          <p class="cap">reorients the box in-hand to set up an easier grasp</p>
         </div>
-        <div class="col-media">
-          <div class="plate"><img src="../static/images/results.png" alt="Results across models and access regimes"></div>
+        <div>
+          <div class="clip clip-43"><video muted loop playsinline preload="metadata" poster="../static/images/emerge_cup_poster.jpg" src="../static/videos/emerge_cup.mp4"></video>
+          <img class="print-poster" src="../static/images/emerge_cup_poster.jpg" alt=""></div>
+          <p class="cap">recovers from a failed first insertion — retries and succeeds</p>
         </div>
+      </div>
+      <p class="note center">Behaviors absent from the teleoperated demonstrations.</p>
+    </div>
+  </section>
+
+  <!-- 20a · base model matters: same recipe, opposite outcomes -->
+  <section class="slide">
+    <div class="stage">
+      <h2 class="slide-h">Same CLIFT recipe, opposite outcomes</h2>
+      <div class="bm-wrap">
+        <p class="bm-cond">zero-shot: unseen objects &amp; configs &middot; only the base model differs</p>
+        <svg class="bmslope" viewBox="0 0 940 360" role="img" aria-label="Under the identical CLIFT recipe, GROD climbs from 84% to 98% zero-shot while pi-0.5 collapses from 70% to 52%.">
+          <line class="sl-guide" x1="150" y1="24" x2="150" y2="316"/>
+          <line class="sl-guide" x1="700" y1="24" x2="700" y2="316"/>
+          <text class="sl-axis" x="150" y="344" text-anchor="middle">before CLIFT</text>
+          <text class="sl-axis" x="700" y="344" text-anchor="middle">after CLIFT</text>
+          <g class="sl-grod">
+            <line class="sl-line" x1="150" y1="105" x2="700" y2="39"/>
+            <circle class="sl-dot0" cx="150" cy="105" r="5"/>
+            <text class="sl-label" x="136" y="105" text-anchor="end">GROD<tspan class="sl-base" dx="9">84%</tspan></text>
+            <g class="sl-cap">
+              <circle class="sl-halo" cx="700" cy="39" r="13"/>
+              <circle class="sl-dot" cx="700" cy="39" r="7"/>
+              <text class="sl-big" x="718" y="39">98%</text>
+              <text class="sl-verdict" x="720" y="84">climbs</text>
+            </g>
+          </g>
+          <g class="sl-pi">
+            <line class="sl-line" x1="150" y1="170" x2="700" y2="254"/>
+            <circle class="sl-dot0" cx="150" cy="170" r="5"/>
+            <text class="sl-label" x="136" y="170" text-anchor="end">&pi;<tspan class="sl-sub" dy="3">0.5</tspan><tspan class="sl-base" dx="9" dy="-3">70%</tspan></text>
+            <g class="sl-cap">
+              <circle class="sl-halo" cx="700" cy="254" r="13"/>
+              <circle class="sl-dot" cx="700" cy="254" r="7"/>
+              <text class="sl-big" x="718" y="254">52%</text>
+              <text class="sl-verdict" x="720" y="299">collapses</text>
+            </g>
+          </g>
+        </svg>
+        <p class="bm-coda">The base model <em class="grad-inline">sets the ceiling</em> &mdash; CLIFT can only climb toward it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 20b · why the collapse: pi-0.5 is blind to its own failures -->
+  <section class="slide">
+    <div class="stage">
+      <p class="kicker">why the collapse</p>
+      <h2 class="slide-h">&pi;<sub>0.5</sub> cannot see its own failures</h2>
+      <div class="bm-wrap">
+        <div class="failstrip">
+          <figure class="fs-frame">
+            <img src="../static/images/fig_pi05_plate_1.png" alt="pi-0.5 reaches to pick a plate">
+            <figcaption>1 &middot; reaches to pick a plate</figcaption>
+          </figure>
+          <span class="fs-arrow">&rarr;</span>
+          <figure class="fs-frame">
+            <img src="../static/images/fig_pi05_plate_2.png" alt="the pick fails">
+            <figcaption>2 &middot; pick fails</figcaption>
+          </figure>
+          <span class="fs-arrow">&rarr;</span>
+          <figure class="fs-frame fs-fail">
+            <img src="../static/images/fig_pi05_plate_3.png" alt="pi-0.5 proceeds to hand over with an empty gripper">
+            <span class="fs-tag">hand is empty &#10005;</span>
+            <figcaption>3 &middot; hands over anyway</figcaption>
+          </figure>
+        </div>
+        <p class="bm-after">
+          <span class="bm-after-cap">after identical sft &middot; bimanual plate handover</span>
+          <span class="bm-pair"><span class="bm-name">GROD</span><span class="bm-num">53%</span><span class="bm-vs">vs</span><span class="bm-name">&pi;<sub>0.5</sub></span><span class="bm-num bm-num-neg">5%</span></span>
+        </p>
+        <p class="bm-hyp"><span class="hypk">hypothesis</span> &mdash; over-reliance on proprioceptive cues; on-policy SFT may reinforce those correlations.</p>
       </div>
     </div>
   </section>
@@ -460,12 +568,7 @@
         <h1 class="wordmark grad">CLIFT</h1>
         <p class="deck-line">Task mastery for closed-weight robot foundation models —<br>
           <strong>without ever opening the model box.</strong></p>
-        <p class="affils">arxiv.org/abs/2607.29172&ensp;&middot;&ensp;thomaschen98.github.io/clift</p>
-        <div class="logo-row">
-          <img src="../static/images/logo_berkeley.svg" alt="UC Berkeley" style="height:36px">
-          <img src="../static/images/logo_gdm.svg" alt="Google DeepMind" style="height:29px">
-          <img src="../static/images/logo_nvidia.svg" alt="NVIDIA" style="height:27px">
-        </div>
+        <p class="affils">arxiv.org/abs/2607.29172</p>
       </div>
     </div>
   </section>
