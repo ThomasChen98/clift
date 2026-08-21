@@ -621,3 +621,247 @@ html, body {
   .clip .print-poster { display: block; width: 100%; height: 100%; object-fit: contain; }
   .tile .print-poster { display: block; width: 100%; aspect-ratio: 25 / 16; object-fit: cover; }
 }
+
+/* ==========================================================================
+   Method-part expansion: problem setting, roadmap, zoom-ins, recap
+   ========================================================================== */
+
+/* code cards */
+.c-neg { color: #fda4af; }
+.code-card-sm { padding: 22px 26px; }
+.code-card-sm pre { font-size: 14px; line-height: 1.62; }
+
+/* objective / formula card */
+.obj-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 30px 40px 26px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+.obj-formula {
+  margin: 0 0 6px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 25px;
+  line-height: 1.6;
+  color: var(--text);
+}
+.obj-formula sub, .obj-formula sup { font-size: 60%; }
+.obj-r { color: var(--brand-bright); }
+.obj-kl { color: var(--brand2-bright); }
+.obj-legend { display: flex; flex-direction: column; gap: 9px; margin-top: 18px; align-items: center; }
+.obj-key { display: inline-flex; align-items: baseline; gap: 10px; font-size: 16.5px; color: var(--text-dim); }
+.obj-key strong { color: #c9d3e4; }
+.obj-swatch { flex: 0 0 auto; width: 16px; height: 7px; border-radius: 4px; transform: translateY(-2px); }
+.obj-swatch-r { background: var(--brand-bright); }
+.obj-swatch-kl { background: var(--brand2-bright); }
+.obj-card-sm { padding: 22px 26px 18px; }
+.obj-card-sm .obj-formula { font-size: 21px; margin: 2px 0; }
+.obj-note { font-family: var(--mono); font-size: 13px; color: var(--text-faint); }
+
+/* "not exposed" rows */
+.lockrow { display: flex; gap: 18px; margin-top: 22px; }
+.lockitem {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 15px 18px 13px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.lockhead { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.lockname { font-family: var(--mono); font-size: 16px; font-weight: 600; color: var(--text); white-space: nowrap; }
+.lockneed { font-size: 14.5px; color: var(--text-dim); }
+.lockx {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: #fda4af;
+  border: 1px solid rgba(251, 113, 133, 0.35);
+  border-radius: 999px;
+  padding: 2px 10px;
+  white-space: nowrap;
+}
+
+/* roadmap (4-stage flow) */
+.flow-road .road-card { min-height: 195px; padding: 22px 22px 20px; }
+.road-card h3 { font-family: var(--font); font-size: 20px; font-weight: 700; }
+.road-card h3 .step-num { font-size: 24px; margin-right: 10px; }
+.road-card p { font-size: 15.5px; margin-bottom: 0; }
+.slide.active .flow-arrow:nth-of-type(6) { transition-delay: 1.3s; }
+.slide.active .flow-stage:nth-of-type(7) { transition-delay: 1.45s; }
+.loop-note { margin: 24px 0 0; text-align: center; font-family: var(--mono); font-size: 15px; color: var(--text-dim); }
+
+/* score: two-options-combine layout */
+.flow-s1 { align-items: stretch; }
+.flow-s1 .flow-arrow { align-self: center; }
+.stack2 { display: flex; flex-direction: column; gap: 16px; flex: 1.25; }
+.stack2 .flow-card { min-height: 0; flex: 1; padding: 20px 24px 18px; }
+.stack2 .flow-card p { margin-bottom: 12px; }
+.flow-s1 .s1-res { height: 100%; min-height: 0; display: flex; flex-direction: column; justify-content: center; }
+.vrow { display: flex; gap: 10px; flex-wrap: wrap; }
+.v-pro, .v-con { font-family: var(--mono); font-size: 13px; border-radius: 999px; padding: 3px 11px; }
+.v-pro { color: #6ee7b7; border: 1px solid rgba(52, 211, 153, 0.35); }
+.v-con { color: #fda4af; border: 1px solid rgba(251, 113, 133, 0.35); }
+
+/* slimmer flow-eq cards (zoom-in slides) */
+.flow-eq-slim .flow-card { min-height: 300px; padding: 28px 28px 22px; }
+.flow-eq-slim .flow-card h3 { margin-bottom: 16px; }
+.flow-eq-slim .formula { margin-bottom: 14px !important; font-size: 16px; white-space: nowrap; }
+.figzone-sm { height: 118px !important; margin-bottom: 12px !important; }
+
+/* state-difficulty ladder pair */
+.duo-sm { display: flex; gap: 16px; }
+.lad-card { flex: 1; min-width: 0; min-height: 0; padding: 20px 22px 16px; }
+.lad-card h3 { font-size: 17px; margin-bottom: 2px; }
+.lad-card .cardline { font-size: 13px !important; margin-bottom: 12px !important; }
+.lad-card .tokrow { margin-top: 14px; justify-content: center; }
+
+/* dataset composition tiles */
+.dsrow { display: flex; gap: 18px; align-items: stretch; }
+.dsrow .ds-card { flex: 1; min-width: 0; min-height: 0; padding: 22px 20px 18px; }
+.ds-card h3 { font-size: 18px !important; margin-bottom: 14px !important; }
+.ds-prompt { font-family: var(--mono); font-size: 14px; color: #c9d3e4; line-height: 2.1; margin: 0 0 12px !important; }
+.tok-sm { font-size: 12.5px !important; min-width: 0 !important; padding: 1px 8px !important; }
+.tok-none {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--text-faint);
+  border: 1px dashed rgba(141, 163, 192, 0.45);
+  border-radius: 6px;
+  padding: 1px 8px;
+  white-space: nowrap;
+  display: inline-flex;
+}
+.ds-skip { opacity: 0.72; }
+.ds-skip .ds-prompt s { text-decoration-color: rgba(251, 113, 133, 0.6); }
+
+/* wider value column for "≈100" */
+.hchart-wide .hrow { grid-template-columns: 1fr 48px; }
+
+/* condition: mode-selection figure */
+.modes-fig { padding: 6px 0; }
+.modes-fig svg { display: block; width: 100%; height: auto; }
+
+/* iterate: stat rail */
+.stat-rail { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; }
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 13px 16px 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.stat-num {
+  font-family: var(--mono);
+  font-size: 29px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  background-image: linear-gradient(105deg, var(--brand-bright), var(--brand2-bright));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.stat-label { font-family: var(--mono); font-size: 12.5px; color: var(--text-dim); }
+
+/* recap */
+.plate-recap { max-height: 420px; }
+.plate-recap img { max-height: 330px; }
+.check-rail { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
+.chk {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text-dim);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 5px 13px;
+  white-space: nowrap;
+}
+.chk i { font-style: normal; color: var(--pos); margin-right: 8px; }
+
+/* make staged flows visible in print / reduced motion (also fixes existing flow slides) */
+@media print, (prefers-reduced-motion: reduce) {
+  .flow-stage, .flow-arrow { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+/* ==========================================================================
+   Dark-converted paper figures, results-chart highlighting, closing links
+   ========================================================================== */
+
+/* figures recolored for dark background — no plate needed */
+.fig-dark { display: block; width: 100%; height: auto; }
+.fig-reward { width: 96%; margin: 0 auto; }
+
+/* setup slide: give the task-suite figure the larger share */
+.cols-setup { gap: 40px; align-items: center; }
+.cols-setup .col-media:first-child { flex: 0.72; }
+.cols-setup .col-media:last-child { flex: 1.5; }
+
+/* results chart with per-slide focus overlays */
+.rwrap { position: relative; width: 100%; }
+.rwrap img { display: block; width: 100%; height: auto; }
+.rdim {
+  position: absolute;
+  top: 32%;
+  height: 65.2%;
+  background: rgba(0, 0, 0, 0.74);
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.7s ease 0.5s;
+}
+.slide.active .rdim { opacity: 1; }
+.rspot {
+  position: absolute;
+  top: 30.6%;
+  height: 67.4%;
+  border: 1.5px solid rgba(124, 179, 255, 0.85);
+  border-radius: 8px;
+  box-shadow: 0 0 22px rgba(91, 157, 255, 0.28), inset 0 0 16px rgba(91, 157, 255, 0.08);
+  opacity: 0;
+  transition: opacity 0.6s ease 0.9s;
+}
+.slide.active .rspot { opacity: 1; }
+.rstats { display: flex; justify-content: center; gap: 40px; margin-top: 16px; }
+.rstat { font-family: var(--mono); font-size: 15px; color: var(--text-dim); }
+.rstat i { font-style: normal; color: var(--text-faint); }
+.rstat b {
+  font-size: 25px;
+  font-weight: 600;
+  color: var(--pos);
+  margin-left: 3px;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 16px rgba(52, 211, 153, 0.25);
+}
+.rwrap + .rstats + .note.center { margin-top: 14px; }
+@media print, (prefers-reduced-motion: reduce) {
+  .rdim, .rspot { opacity: 1 !important; transition: none !important; }
+}
+
+/* closing slide: QR trio + compact title block */
+.wordmark-sm { font-size: 72px; margin-bottom: 10px; }
+.deck-line-sm { font-size: 23px; margin-bottom: 16px; }
+.authors-sm { font-size: 15px; line-height: 1.6; margin-bottom: 22px; }
+.qr-row { display: flex; justify-content: center; gap: 52px; margin: 4px 0 26px; }
+.qr { margin: 0; }
+.qr img {
+  display: block;
+  width: 128px;
+  height: 128px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.qr figcaption {
+  margin-top: 9px;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  text-align: center;
+}
+.logo-row-sm { gap: 40px; }
